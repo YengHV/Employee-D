@@ -1,11 +1,11 @@
 import React from "react";
 
 
-function Search(props) {
+function Search() {
   return (
     
     <div className="searchBar">
-    <input type="search" id="search" placeholder="Search Employee" />
+    <input type="search" id="search" placeholder="Search Employee" value="userVal" onChange={handleSubmit}/>
     </div>
   );
 }

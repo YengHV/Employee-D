@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import API from "../utils/API";
 import Container from "./Container"
+//import Search from "./Search";
 
 
 function Table(props) {
@@ -9,6 +10,28 @@ function Table(props) {
     search: ""
   });
 
+
+
+   
+    const [input, setInput] = useState({})
+  
+    const handleInputChange = (e) => setInput({
+      ...input,
+      [e.currentTarget.name]: e.currentTarget.value
+      
+    })
+    
+    const handleClick = () => {
+      console.log(input.userVal);
+
+      
+      let filterResult = table.results.filter(user => user.name.first === input.userVal);
+      console.log(filterResult)
+
+      setTable({results:filterResult})
+
+    }
+
   useEffect(() => {
     API.getEmployees()
       .then(res => setTable({ results: res.data.results }))
@@ -16,6 +39,13 @@ function Table(props) {
   }, []);
   return (
     <div>
+      <div className="searchBar">
+      <input type="text" id="search" name="userVal" placeholder="Search Employee" onChange={handleInputChange}/>
+      <button
+        
+        onClick={handleClick}>Search</button>
+    
+    </div>
       <Container>
         {table.results.map(result => (
           <div className="row" key={result.id.value}>
